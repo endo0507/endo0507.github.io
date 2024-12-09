@@ -1,0 +1,19 @@
+@charset "utf-8";
+body::before{
+	content: ''; display: block; position: fixed;
+	top:0; left:0;
+	z-index:-1;
+	width: 100%; height: 100vh;
+	background:url('/common/img/404mei.webp') rgba(255,255,255,0.6) center no-repeat;
+	background-blend-mode:lighten;
+	background-size: cover;
+	transition:.5s; }
+.text-box{
+	position:absolute;
+	top:55%; left:50%; width:100%;
+	transform:translate(-50%, -50%);
+	text-align:center; }
+h1{ font-size:clamp(2.0rem,4.0vw,8.0rem); font-weight:bold; }
+p{ font-size:clamp(1.0rem,2.0vw,4.0rem); }
+@media(prefers-color-scheme:dark){ body::before{ background-color:rgba(0,0,0,0.6); background-blend-mode:darken; } } /* -- dark mode -- */
+@media(prefers-reduced-motion:reduce){ body::before{ transition:1ms; } } /* -- animation accessibility -- */

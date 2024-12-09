@@ -1,0 +1,1 @@
+fetch("/common/menu.html").then(r=>r.text()).then(d=>{document.getElementById("side-menu").innerHTML=d});

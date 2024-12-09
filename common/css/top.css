@@ -1,0 +1,14 @@
+@charset "utf-8";
+.main-body{ margin:0 10%; display:flex; }
+.main-left{ width:40%; }
+.main-right{ width:60%; }
+.info-header{ text-align:center; }
+.info-section{ padding-top:1rem; }
+.notice{ margin:1rem 0; }
+.notice ul{ padding-left:1rem; }
+/* -- for smartphone -- */
+@media(max-width:767px){
+	.main-body{ display:block; }
+	.main-left{ width:100%; }
+	.main-right{ width:100%; }
+}
