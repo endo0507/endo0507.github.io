@@ -1,0 +1,34 @@
+<html lang="ja"><head><meta charset="utf-8">
+<title>2025カウントダウン</title>
+<!-- CSS & JS & viewport & refresh-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="refresh" content="900">
+<link rel="stylesheet" href="/common/css/countdown.css">
+<script type="module" src="/common/js/clock-timer.js"></script>
+<!-- SEO -->
+<link rel="canonical" href="https://endo0507.github.io">
+<meta name="description" content="ミリ秒単位まで正確な年越しカウントダウンです。">
+<!-- OGP -->
+<meta property="og:title" content="2025カウントダウン">
+<meta property="og:site_name" content="Endoのホームページ">
+<meta property="og:url" content="https://endo0507.github.io/countdown.html">
+<meta property="og:type" content="website">
+<meta property="og:description" content="ミリ秒単位まで正確な年越しカウントダウンです。">
+<meta property="og:image" content="https://endo0507.github.io/common/img/prof_icon.webp">
+<meta property="og:locale" content="ja_JP">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@Alterna_Endo">
+<meta name="twitter:creator" content="@Alterna_Endo">
+</head><body>
+<p id="status">時刻取得元：<span id="clock-src">端末 or World Time API</span><br>
+	時差：<span id="clock-shift">0.000秒</span></p>
+<p id="clock"><span id="date">2025年1月1日 (水)</span> <span id="time">0:00:00</span></p>
+<p id="sinceuntil">2025年まで、あと</p>
+<p id="timer">0:00:00</p>
+<p id="desc">APIから正確な時刻を取得し、端末の時刻との差を求めて表示する、正確な年越しカウントダウンです。<br>
+	(時刻表示誤差 = JavaScript処理時間 = <span id="exec-time">0.0000秒</span>)<br>
+	再読込でAPIから時刻を再取得しますが、数秒間で大量に行うと制限がかかります。<br>
+	APIから時刻を取得できない場合、端末の時刻を使用します。<br>
+	15分ごとに自動で再読込します。</p>
+</body></html>
