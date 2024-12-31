@@ -21,14 +21,13 @@
 <meta name="twitter:site" content="@Alterna_Endo">
 <meta name="twitter:creator" content="@Alterna_Endo">
 </head><body>
-<p id="status">時刻取得元：<span id="clock-src">端末 or World Time API</span><br>
-	時差：<span id="clock-shift">0.000秒</span></p>
+<p id="status"><span id="clock-src">時刻情報取得先：端末 or World Time API</span>　<span id="clock-shift">時差：0.000秒</span></p>
 <p id="clock"><span id="date">2025年1月1日 (水)</span> <span id="time">0:00:00</span></p>
 <p id="sinceuntil">2025年まで、あと</p>
 <p id="timer">0:00:00</p>
-<p id="desc">APIから正確な時刻を取得し、端末の時刻との差を求めて表示する、正確な年越しカウントダウンです。<br>
-	(時刻表示誤差 = JavaScript処理時間 = <span id="exec-time">0.0000秒</span>)<br>
-	再読込でAPIから時刻を再取得しますが、数秒間で大量に行うと制限がかかります。<br>
+<p id="desc"><noscript style="color:#F20;">動作させるには、JavaScriptを有効にして下さい。<br></noscript>
+	APIから正確な時刻を取得し、端末の時刻との差を求め表示する、正確な年越しカウントダウンです。<br>
+	(時刻表示誤差 = JavaScript実行時間 = <span id="exec-time">0.0000</span>秒)<br>
 	APIから時刻を取得できない場合、端末の時刻を使用します。<br>
-	15分ごとに自動で再読込します。</p>
+	15分ごとに自動で再読込して、時刻を再取得します。</p>
 </body></html>
