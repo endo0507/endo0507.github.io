@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="ja"><head prefix="og: http://ogp.me/ns#"><meta charset="utf-8">
+<title>誕生日 or 年越しカウントダウン</title>
+<!-- CSS & JS & viewport & refresh-->
+<link rel="stylesheet" href="/common/css/countdown.css">
+<script type="module" src="/common/js/clock-timer.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- SEO -->
+<link rel="canonical" href="https://endo0507.github.io/countdown.html">
+<meta name="description" content="ミリ秒単位まで正確なカウントダウンです。">
+<!-- OGP -->
+<meta property="og:title" content="誕生日 or 年越しカウントダウン">
+<meta property="og:site_name" content="Endoのホームページ">
+<meta property="og:url" content="https://endo0507.github.io/countdown.html">
+<meta property="og:type" content="website">
+<meta property="og:description" content="ミリ秒単位まで正確なカウントダウンです。">
+<meta property="og:image" content="https://endo0507.github.io/common/img/prof_icon.webp">
+<meta property="og:locale" content="ja_JP">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@Alterna_Endo">
+<meta name="twitter:creator" content="@Alterna_Endo">
+</head><body>
+<main>
+<p id="status"><span id="clock-src">時刻情報：端末 or timeapi.io</span>　<span id="clock-offset">時差：端末の時刻は　.　　秒　　　います</span></p>
+<p id="clock"><span id="today">　　年　月　日 (　)</span> <span id="time">　:　:　</span></p>
+<p id="msg">カウントダウン</p>
+<p id="timer"><span id="days">　　日</span> <span id="count">　:　:　</span></p>
+</main><aside>
+<p id="desc"><noscript style="color:#F20;">動作させるには、JavaScriptを有効にして下さい。<br></noscript>
+	APIから正確な時刻を取得し、端末の時刻との差を求め表示するカウントダウンです。<br>
+	※APIの応答が遅く、計算誤差が大きくなり、特に初回表示は1秒未満のズレが生じることがあります。<br>
+	誤差が気になる場合は数回再読込して下さい。APIの応答が早いほど正確な時刻を表示できます。<br>
+	1秒間の表示誤差 = JavaScript実行時間 = <span id="exec-time">　.　　</span>秒<br>
+	APIから時刻を取得できない場合、端末の時刻を使用します。<br>
+</aside>
+<script nomodule>
+//IEの場合非対応のメッセージを表示する
+var UA = navigator.userAgent.toLowerCase();
+if(UA.indexOf("msie") != -1 || UA.indexOf("trident") != -1)
+document.getElementById("desc").innerHTML = 'このカウントダウンはInternet Explorerでは動作しません。他のブラウザをご利用下さい。<br><br>ダウンロードリンク<br><a href="https://www.google.com/chrome/" target="_top" rel="noopener noreferrer">Google Chrome</a>　<a href="https://www.mozilla.org/ja/firefox/windows/" target="_top" rel="noopener noreferrer">Mozilla Firefox</a>'
+</script>
+</body></html>
