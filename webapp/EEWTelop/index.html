@@ -1,0 +1,132 @@
+<!DOCTYPE html><html lang="ja"><head prefix="og: http://ogp.me/ns#"><meta charset="utf-8">
+<title>EEWTelop</title>
+<!-- CSS & JS & viewport -->
+<link rel="stylesheet" href="./EEWTelop.css">
+<link rel="stylesheet" href="/common/css/radius-table.css" media="print" onload="this.media='all'">
+<script type="module" src="./EEW.js"></script>
+<script type="module" src="./settings.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- SEO -->
+<link rel="canonical" href="https://endo0507.github.io/webapp/EEWTelop/">
+<meta name="description" content="P2P地震情報APIから緊急地震速報を受信し、NHK風テロップで表示します。">
+<!-- OGP -->
+<meta property="og:title" content="EEWTelop">
+<meta property="og:site_name" content="Endoのホームページ">
+<meta property="og:url" content="https://endo0507.github.io/webapp/EEWTelop/">
+<meta property="og:type" content="website">
+<meta property="og:description" content="P2P地震情報APIから緊急地震速報を受信し、NHK風テロップで表示します。">
+<meta property="og:image" content="https://endo0507.github.io/common/img/prof_icon.webp">
+<meta property="og:locale" content="ja_JP">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@Alterna_Endo">
+<meta name="twitter:creator" content="@Alterna_Endo">
+</head><body><main>
+	<div id="EEWTitle">　</div>
+	<div id="EEWhypocenter">　</div>
+	<div id="EEWarea"></div>
+</main><aside>
+	<noscript style="color:#F20;">動作させるには、JavaScriptを有効にして下さい<br></noscript>
+	<p>P2P地震情報 WebSocket API：<span id="status">接続されていません</span><br>
+		直近に受信した情報の受信日時：<span id="updateTime">0000/00/00 00:00:00.000</span>　情報コード：<span id="code">000</span><br>
+		※コードについては、<a href="https://www.p2pquake.net/develop/json_api_v2/#/P2P地震情報%20API/get_history" target="_blank" rel="noopener noreferrer">P2P地震情報 API仕様書</a>のcodesの欄を見て下さい。<br>
+		正常であれば、数分おきにコード555の情報を受信しているはずです。受信したJSONはコンソールに出力されています。</p>
+	<details><summary>ページ内リンク(クリックして表示)</summary>
+		<ul>
+			<li><a href="#caution">注意事項(ご使用前にお読み下さい)</a></li>
+			<li><a href="#how2use">使い方・設定</a></li>
+			<li><a href="#tips-areadisp">発表地域の表示について</a></li>
+			<li><a href="#tips-time">テロップの表示時間について</a></li>
+		</ul>
+	</details>
+	<h2 id="caution">注意事項(ご使用前にお読み下さい)</h2>
+	<p>表示サンプルを確認し、文字サイズなどを確認してからご使用下さい。<br>
+		このアプリは無保証で、かつ情報取得元のP2P地震情報APIも内容や配信品質については無保証ですので、自己責任で利用して下さい。<br>
+		イレギュラーなシチュエーションでは不具合が起きるかもしれません。<br>
+		(例)複数の緊急地震速報(警報)が発表された場合、とても広範囲(全国レベル)に発表された場合<br>
+		このアプリでは、発表地域の地図生成や読み上げ、受信時の効果音再生などの機能はありません。<br>
+		他の緊急地震速報表示ソフト(JQuake, KyoshinEewViewer for ingenなど)をご使用下さい。</p>
+	<h2 id="how2use">使い方・設定</h2>
+	<p>このWebアプリは、P2P地震情報 WebSocket APIから緊急地震速報(警報)を受信し、発表地域をNHK風テロップで表示します。<br>
+		緊急地震速報が発表されていないときや、表示時間(<a href="#tips-time">下記</a>)経過後は、表示部をグリーンバックで表示します。<br>
+		キャンセル報を受信したときは、「緊急地震速報は取消されました」と表示し、10秒後にグリーンバックになります。(デフォルト設定の場合)<br>
+		OBS等の配信ソフトでカラーキーフィルタを適用するとNHKのような緊急地震速報表示を実装できます。</p>
+	<details><summary>表示サンプル確認・各種設定(クリックして表示)</summary>
+		<h3>表示サンプル　※2024-01-01 16:10頃発表の緊急地震速報(予報の第30報)</h3>
+		<div id="sample-main">
+			<div id="sample-EEWTitle"></div>
+			<div id="sample-EEWhypocenter"></div>
+			<div id="sample-EEWarea"></div>
+		</div>
+		各項目を入力して、テロップをカスタマイズできます。※設定は保存されないので、メモを取って下さい。<br>
+		<form>表示サンプルの選択：
+			<label><input type="radio" name="sampleselect" value="announce" checked>新規・続報発表</label>
+			<label><input type="radio" name="sampleselect" value="cancel">キャンセル報</label>
+			<h3>新規・続報発表時の設定</h3>
+			<label>タイトルの背景色：<input type="text" class="color-code" maxlength="7" id="announce-title-bgcolor" value="#C20"></label>
+			<label>タイトルの文字色：<input type="text" class="color-code" maxlength="7" id="announce-title-txtcolor" value="#FFF"></label>
+			<label>メインの背景色：<input type="text" class="color-code" maxlength="7" id="announce-main-bgcolor" value="#04C"></label><br>
+			<label>震源地名の文字色：<input type="text" class="color-code" maxlength="7" id="announce-hypocenter-txtcolor" value="#FAF500"></label>
+			<label>発表地域の文字色：<input type="text" class="color-code" maxlength="7" id="announce-area-txtcolor" value="#FFF"></label><br>
+			<label>タイトルに表示する文字：<input type="text" id="announce-title-txt" value="緊急地震速報(気象庁)"></label>
+			<h3>キャンセル報の設定</h3>
+			<label>タイトルの背景色：<input type="text" class="color-code" maxlength="7" id="cancel-title-bgcolor" value="#555"></label>
+			<label>タイトルの文字色：<input type="text" class="color-code" maxlength="7" id="cancel-title-txtcolor" value="#FFF"></label>
+			<label>メインの背景色：<input type="text" class="color-code" maxlength="7" id="cancel-main-bgcolor" value="#04C"></label><br>
+			<label>取消メッセージの文字色：<input type="text" class="color-code" maxlength="7" id="cancel-area-txtcolor" value="#FFF"></label><br>
+			<label>タイトルに表示する文字：<input type="text" id="cancel-title-txt" value="緊急地震速報(取消)"></label>
+			<label>取消メッセージ：<input style="width:16rem;" type="text" id="cancel-area-txt" value="緊急地震速報は取消されました"></label><br>
+			<label>取消を表示してからグリーンバックに戻すまでの時間(秒)<input class="color-code" type="number" min="0" id="cancel-gb-timeout" value="10"></label><br>
+			<input style="padding:0.5rem;" type="button" id="apply" value="適用する">※緊急地震速報発表中の場合、情報が変化するまで上部メイン画面の表示は変わりません。
+		</form>
+		フォントサイズはブラウザウィンドウの大きさに応じて変わります。<br>
+		(小さすぎると広範囲に発表された際はみ出るので、幅600px × 高さ300px以上大きくして下さい。サイズ確認は<a href="https://takumi0125.github.io/viewportChecker/" target="_blank" rel="noopener noreferrer">こちら</a>が便利です。)<br>
+		フォントはBIZ UDPGothicをCSSで指定していますが、変更したい場合は「Stylebot」などのブラウザ拡張機能を用いて、<br>
+		body{font-family:"フォントファミリー名";}　のようにCSSを指定すると変えられます。
+	</details>
+	<h2 id="tips-areadisp">発表地域の表示について</h2>
+	<p>基本的に<a href="https://www.jma.go.jp/jma/kishou/know/jishin/joho/shindo-name.html" target="_blank" rel="noopener noreferrer">緊急地震速報で用いる府県予報区の名称(気象庁)</a>で表示します。<br>
+		8府県予報区以上に発表された場合、3府県予報区以上(北陸、甲信など3以下の地方は全て)に発表された地方をまとめて表示します。<br>
+		<br>
+		(例)発表地域：埼玉、千葉、東京、神奈川、山梨、長野、静岡、岐阜<br>
+		実際の表示：関東　甲信　静岡　岐阜<br>
+		<br>
+		8府県予報区以上かつ、4地方以上で発表された場合、1府県予報区のみに発表された地方を除き、全て地方で表示します。</p>
+	<details><summary>地方区分の一覧　(NHK準拠)<br>(クリックして表示)</summary>
+		<table class="radius-table">
+			<tr><th>地方</th><th>府県予報区</th></tr>
+			<tr><td>北海道</td><td>北海道道央、北海道道南、北海道道北、北海道道東</td></tr>
+			<tr><td>東北</td><td>青森、岩手、宮城、秋田、山形、福島</td></tr>
+			<tr><td>関東</td><td>茨城、栃木、群馬、埼玉、千葉、東京(島嶼部除く)、神奈川</td></tr>
+			<tr><td>伊豆諸島</td><td>伊豆大島、新島、神津島、三宅島、八丈島</td></tr>
+			<tr><td>小笠原</td><td>小笠原(小笠原村)</td></tr>
+			<tr><td>新潟</td><td>新潟</td></tr>
+			<tr><td>北陸</td><td>富山、石川、福井</td></tr>
+			<tr><td>甲信</td><td>山梨、長野</td></tr>
+			<tr><td>東海</td><td>岐阜、静岡、愛知、三重</td></tr>
+			<tr><td>近畿</td><td>滋賀、京都、大阪、兵庫、奈良、和歌山</td></tr>
+			<tr><td>中国</td><td>鳥取、島根、岡山、広島、山口</td></tr>
+			<tr><td>四国</td><td>徳島、香川、愛媛、高知</td></tr>
+			<tr><td>九州</td><td>福岡、佐賀、長崎、熊本、大分、宮崎、鹿児島(奄美除く)</td></tr>
+			<tr><td>奄美</td><td>奄美群島</td></tr>
+			<tr><td>沖縄</td><td>沖縄本島、大東島、宮古島、八重山</td></tr>
+		</table>
+	</details>
+	<h2 id="tips-time">テロップの表示時間について</h2>
+	<p>受信した電文に予想マグニチュードが含まれる場合、予想マグニチュード × 20秒間表示されます。(例)予想M7.0：140秒間表示<br>
+		(大きな地震ほど地震の揺れが長く続くことを想定しています)<br>
+		受信した電文に予想マグニチュードが含まれない場合や、M5.0未満の予想の場合、一律で100秒間表示されます。
+	</p>
+</aside>
+<script nomodule>
+//IEの場合非対応のメッセージを表示する
+var UA = navigator.userAgent.toLowerCase();
+if(UA.indexOf("msie") != -1 || UA.indexOf("trident") != -1){
+	document.getElementById("main").style.setProperty("background-color", "#FAF500");
+	document.getElementById("EEWTitle").style.setProperty("background-color", "#F20");
+	document.getElementById("EEWTitle").innerHTML = 'Internet Explorerには対応していません';
+	document.getElementById("EEWhypocenter").innerHTML = 'このアプリはInternet Explorerでは動作しません';
+	document.getElementById("EEWarea").innerHTML = '他のブラウザをご利用下さい<br><br>ダウンロードリンク<br><a href="https://www.google.com/chrome/" target="_top" rel="noopener noreferrer">Google Chrome</a>　<a href="https://www.mozilla.org/ja/firefox/windows/" target="_top" rel="noopener noreferrer">Mozilla Firefox</a>'
+}
+</script>
+</body></html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html><html lang="ja"><head prefix="og: http://ogp.me/ns#"><meta charset="utf-8">
+<title>誕生日 or 年越しカウントダウン</title>
+<!-- CSS & JS & viewport -->
+<link rel="stylesheet" href="/common/css/countdown.css">
+<script type="module" src="/common/js/clock-timer.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- SEO -->
+<link rel="canonical" href="https://endo0507.github.io/countdown.html">
+<meta name="description" content="ミリ秒単位まで正確なカウントダウンです。">
+<!-- OGP -->
+<meta property="og:title" content="誕生日 or 年越しカウントダウン">
+<meta property="og:site_name" content="Endoのホームページ">
+<meta property="og:url" content="https://endo0507.github.io/countdown.html">
+<meta property="og:type" content="website">
+<meta property="og:description" content="ミリ秒単位まで正確なカウントダウンです。">
+<meta property="og:image" content="https://endo0507.github.io/common/img/prof_icon.webp">
+<meta property="og:locale" content="ja_JP">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@Alterna_Endo">
+<meta name="twitter:creator" content="@Alterna_Endo">
+</head><body>
+<main>
+<p id="status"><span id="clock-src">時刻情報：端末 or elp.emptybox.win</span>　<span id="clock-offset">端末の時刻は0.000秒＿＿＿います</span></p>
+<p id="clock"><span id="today">0000年00月00日 (Ｘ)</span> <span id="time">　:　:　</span></p>
+<p id="msg">カウントダウン</p>
+<p id="timer"><span id="days">000日</span> <span id="count">00:00:00</span></p>
+</main><aside>
+<noscript style="color:#F20;">動作させるには、JavaScriptを有効にして下さい。<br></noscript>
+<p>APIから正確な時刻を取得し、端末の時刻との差を求め表示するカウントダウンです。<br>
+(APIから時刻取得できない場合、端末の時刻を使用します。)<br>
+ページを開いた時に時刻取得し、以降は端末の時計精度で動きます。<br>
+正確な時刻表示を維持するには定期的に再読込して下さい。</p>
+<details><summary>表示時刻の精度について(クリックして詳細表示)</summary>
+取得開始～完了までの時間はある程度補正されますが、API側の処理時間は考慮されていません。(最大数ミリ秒)<br>
+秒が変わるタイミングは、1秒毎の時刻の書換処理により少し遅れます。(<span id="exec-time">0.0000</span>秒)<br>
+時計は処理時間による遅れが積み重ならないようになっています。
+</details></aside>
+<script nomodule>
+//IEの場合非対応のメッセージを表示する
+var UA = navigator.userAgent.toLowerCase();
+if(UA.indexOf("msie") != -1 || UA.indexOf("trident") != -1)
+document.querySelector("aside").innerHTML = '<p>このカウントダウンはInternet Explorerでは動作しません。他のブラウザをご利用下さい。<br><br>ダウンロードリンク<br><a href="https://www.google.com/chrome/" target="_top" rel="noopener noreferrer">Google Chrome</a>　<a href="https://www.mozilla.org/ja/firefox/windows/" target="_top" rel="noopener noreferrer">Mozilla Firefox</a></p>'
+</script>
+</body></html>

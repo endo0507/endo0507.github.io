@@ -1,0 +1,11 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+body{ font-family:'Roboto', sans-serif; font-weight:400; transition:0.5s; text-align:center; }
+main{ display:block; }
+main span{ display:inline-block; }
+#status, aside{ font-size:clamp(1rem, 1.5vw, 4rem); }
+#clock{ font-size:clamp(2.5rem, 3.0vw, 6.0rem); margin-top:0; }
+#msg{ font-size:clamp(2.5rem, 4.0vw, 8.0rem); margin:0; }
+#timer{ font-size:clamp(4.0rem, 7.0vw, 12.0rem); font-weight:500; margin:0; }
+@media(prefers-color-scheme:dark){ body{ background-color:#111; color:#EEE; } }
+@media(prefers-reduced-motion:reduce){ body{ transition:1ms; } }

@@ -1,0 +1,39 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap');
+@font-face{ font-family:'Open Sans'; font-style:normal; font-weight:400; font-display:swap;
+	src:local('Open Sans'), local('Open Sans Regular'), url('/common/fonts/open-sans-v40-latin-regular.woff2') format('woff2'); }
+/* -- frame -- */
+nav{ width:18%; height:100%; overflow:auto; transition:background-color 0.5s;
+	background:url('/common/img/menu_bg_pc.webp') rgba(255, 255, 255, .7) no-repeat left 45% / cover;
+	background-blend-mode:overlay; }
+main{ display:block; width:82%; overflow:auto; margin-left:1rem; }
+/* -- left-side menu -- */
+.menulist{ margin-top:1rem; margin-left:1rem; }
+.menuitem::marker{ font-size:2.5rem; }
+.menuitem{ text-indent:-15px; }
+.menuitem span{ vertical-align:0.55rem; }
+.menulink{ text-wrap:nowrap; }
+.dotcolor-top{ color:#FCC; }
+.dotcolor-certif{ color:#0F0; }
+.dotcolor-created{ color:#3FF; }
+.dotcolor-link{ color:#09F; }
+.dotcolor-publicdata{ color:#1428FF; }
+.dotcolor-siteinfo{ color:#C0C; }
+.dotcolor-EEWTelop{ color:#C20; }
+/* -- common -- */
+html, body{ margin:0; height:100%; }
+body{ display:flex; transition:background-color .5s, color .5s;
+	font-family:'Open Sans', 'ヒラギノ丸ゴ Pro W4', 'ヒラギノ丸ゴ Pro', 'Hiragino Maru Gothic Pro', 'Kosugi Maru', sans-serif; }
+h1{ text-align:center; }
+img{ width:95%; height:auto; }
+a:link{ color:#08F; } a:visited{ color:#94F; }
+.inbl{ display:inline-block; }
+.sect{ border-top:1px solid; }
+.motionless-notice{ display:none; }
+/* -- for smartphone -- */
+@media(max-width:767px){ body{ display:block; }
+	nav{ background-image:url('/common/img/menu_bg_sp.webp'); width:100vw; height:10svh; }
+	.menulist{ display:flex; } .menulink{ margin-right:5rem; }
+	main{ width:100vw; margin:0; } h1{ font-size:7vmin; } h2{ font-size:5vmin; } }
+@media(prefers-color-scheme:dark){ body{ background-color:#111; color:#EEE; } nav{ background-color:rgba(0, 0, 0, .7); } } /* -- dark mode -- */ 
+@media(prefers-reduced-motion:reduce){ .motionless-notice{ display:block; } body, nav{ transition:background-color 1ms, color 1ms; } } /* -- accessibility -- */
