@@ -52,7 +52,7 @@ function grouping(PREFS) { //広範囲に発表された場合地方ごとにま
 		areacnt = 0; //発表された地方数
 	for (const p of PREFS) for (let a = 0; a < AREAS.length; a++)
 		if (AREAS[a].府県予報区.includes(p)) { //検索対象の府県予報区と地方が一致
-			prefcnt == 0 && areacnt++; //地方数カウント
+			prefcnt[a] == 0 && areacnt++; //地方数カウント
 			prefcnt[a]++; break //地方ごとの県数カウント
 		}
 	let disp = []; //表示する地域名
