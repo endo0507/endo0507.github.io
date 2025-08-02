@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="ja"><head prefix="og: http://ogp.me/ns#"><meta charset="utf-8">
+<title>アイプラペンライト</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- SEO -->
+<link rel="canonical" href="https://endo0507.github.io/publicdata/penlight.html">
+<meta name="description" content="アイプラのキャラクターカラーのペンライトになります！">
+<!-- OGP -->
+<meta property="og:title" content="アイプラペンライト">
+<meta property="og:site_name" content="Endoのホームページ">
+<meta property="og:url" content="https://endo0507.github.io/publicdata/penlight.html">
+<meta property="og:type" content="website">
+<meta property="og:description" content="アイプラのキャラクターカラーのペンライトになります！">
+<meta property="og:image" content="https://endo0507.github.io/common/img/prof_icon.webp">
+<meta property="og:locale" content="ja_JP">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@Alterna_Endo">
+<meta name="twitter:creator" content="@Alterna_Endo">
+<style>
+	body{ height:100lvh; text-align:center; } form{ margin:1em; } select, input{ font-size:1.5em; }
+</style>
+</head><body><main>
+<h1>アイプラペンライト</h1>
+<p>キャラクターを選び「変更」を押すと、背景色が変わります。</p>
+<form>
+	<select id="character">
+		<option value="mana">長瀬麻奈 (#F34DB3)</option>
+		<option value="kotono">長瀬琴乃 (#5985DC)</option>
+		<option value="nagisa">伊吹渚 (#F96CA0)</option>
+		<option value="saki">白石沙季 (#64D0B9)</option>
+		<option value="suzu">成宮すず (#F2F046)</option>
+		<option value="mei">早坂芽衣 (#E13B4F)</option>
+		<option value="sakura">川咲さくら (#FA9A36)</option>
+		<option value="shizuku">兵藤雫 (#99CB9A)</option>
+		<option value="chisa">白石千紗 (#E5B8CF)</option>
+		<option value="rei">一ノ瀬怜 (#A9E1F0)</option>
+		<option value="haruko">佐伯遙子 (#C1A7E4)</option>
+		<option value="rui">天動瑠依 (#FDFAF1)</option>
+		<option value="yuu">鈴村優 (#ABD069)</option>
+		<option value="sumire">奥山すみれ (#FFE590)</option>
+		<option value="rio">神崎莉央 (#B14F88)</option>
+		<option value="aoi">井川葵 (#6E75CF)</option>
+		<option value="ai">小美山愛 (#7ACCF1)</option>
+		<option value="kokoro">赤崎こころ (#FD9BB4)</option>
+		<option value="IIIX">IIIX (#F1F200)</option>
+	</select>
+	<input style="padding:0.5rem;" type="button" id="change" value="変更">
+</form></main><script>
+const character = document.getElementById("character"), colors = {
+	mana:"#F34DB3",
+	kotono:"#5985DC", nagisa:"#F96CA0", saki:"#64D0B9", suzu:"#F2F046", mei:"#E13B4F",
+	sakura:"#FA9A36", shizuku:"#99CB9A", chisa:"#E5B8CF", rei:"#A9E1F0", haruko:"#C1A7E4",
+	rui:"#FDFAF1", yuu:"#ABD069", sumire:"#FFE590",
+	rio:"#B14F88", aoi:"#6E75CF", ai:"#7ACCF1", kokoro:"#FD9BB4",
+	IIIX:"#F1F200"
+};
+document.getElementById("change").addEventListener("click", () => {
+	document.querySelector("body").style.setProperty("background-color", colors[character.value]);
+});
+</script></body></html>
