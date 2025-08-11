@@ -41,19 +41,45 @@ function clock() { //毎秒の時刻書換
 const url = new URL(window.location.href), timerDisp = url.searchParams.get("countdown");
 timerSet(new Date); clock(); document.getElementById("clock-src").innerHTML = "時刻情報：端末 (読み込み中…)"; //読込完了前はとりあえず端末時刻で時計とタイマーを動かす
 
-onload = () => { //フォント等読込完了後、APIから時刻取得して時刻修正
+async function clocksync() { //APIから時刻情報を取得し、現在時刻とのズレを求める
+	const serverlist = [ //key:受信したJSONの時刻情報が入っているキー, unix:その時刻情報がUNIX時間のとき出現, tz:時刻情報にタイムゾーン情報がないとき出現
+		{ url: "https://timeapi.io/api/time/current/zone?timeZone=Asia%2FTokyo", key: "dateTime", tz: "+0900" },
+		{ url: "https://worldtimeapi.org/api/timezone/Asia/Tokyo", key: "datetime" },
+		{ url: "https://elp.emtybox.win", key: "unix_time_ms", unix: true }
+	];
+	let offsets = []; //それぞれのAPIで取得した時刻から端末時刻とのズレを求めて入れる（後でズレ平均を計算する）
+	for (const sv of serverlist) {
+		try {
+			const reqSt = performance.now(); //リクエスト開始のタイミングを記録
+			const res = await fetch(sv.url) //リクエスト
+			if (!res.ok) {
+				console.warn("Failed to fetch from " + sv.url + " (status: " + res.status + ")");
+				continue; //取得失敗時は次のAPIサーバへ
+			}
+			const latency = (performance.now() - reqSt) / 2, //レスポンスの時間を求める
+				J = await res.json(); //JSON
+			sv.unix ? offsets.push(latency + (J[sv.key] - Date.now()))
+				: sv.tz ? offsets.push(latency + (new Date(J[sv.key] + sv.tz) - new Date())) : offsets.push(latency + (new Date(J[sv.key]) - new Date()));
+		} catch (e) {
+			console.error("Fetch error from " + sv.url, e);
+			continue;
+		}
+	}
+	return offsets
+}
+
+onload = async() => { //読込完了後、APIから時刻取得して修正
 	document.getElementById("clock-src").innerHTML = "時刻情報：端末 (APIから取得中…)";
-	const reqSt = performance.now(); //リクエスト開始のタイミングを記録
-	fetch('https://elp.emptybox.win').then(r=>{
-		if(!r.ok)throw Error(r.status);  //HTTPステータス200番台以外がレスポンスされた時はエラー
-		offset = (performance.now() - reqSt) / 2; //レスポンスにかかった時間を求める
-		return r.json() //APIから受け取ったJSONを処理
-	}).then(J=>{
-		offset += J.unix_time_ms - Date.now(); //端末時刻のズレ = レスポンスの時間 + (API時刻 - 端末時刻)
-		document.getElementById("clock-src").innerHTML = "時刻情報：elp.emptybox.win (取得成功)"; //取得先表示
-		timerSet(new Date(Date.now() + offset + 10)); //正確な時刻に基づき、カウントダウン終了日時を改めて決定
-	}).catch(e=>(document.getElementById("clock-src").innerHTML = '時刻情報：端末 (<span style="color:#F20;">APIから取得失敗</span>)', console.error('Error!', e))) //取得失敗メッセージ表示
-};
+	const offsets = await clocksync();
+	offset = offsets.reduce((a, b) => a + b, 0) / offsets.length;
+	if (offsets.length > 0) {
+		document.getElementById("clock-src").innerHTML = '時刻情報：API (取得サーバ数：' + offsets.length + ')';
+	} else {
+		document.getElementById("clock-src").innerHTML = '時刻情報：端末 (<span style="color:#F20;">サーバから取得失敗</span>)';
+		console.error("すべてのサーバで時刻情報の取得に失敗しました");
+	}
+	timerSet(new Date(Date.now() + offset + 10)); //正確な時刻に基づき、カウントダウン終了日時を改めて決定
+}
 document.onvisibilitychange = () => { //ブラウザのタブ移動等でページが非表示の場合時計を止める
 	if (document.hidden) clearTimeout(timeoutID);
 	else {
