@@ -51,7 +51,7 @@ async function clocksync() { //APIから時刻情報を取得し、現在時刻�
 	for (const sv of serverlist) {
 		try {
 			const reqSt = performance.now(); //リクエスト開始のタイミングを記録
-			const res = await fetch(sv.url) //リクエスト
+			const res = await fetch(sv.url)
 			if (!res.ok) {
 				console.warn("Failed to fetch from " + sv.url + " (status: " + res.status + ")");
 				continue; //取得失敗時は次のAPIサーバへ
@@ -71,8 +71,10 @@ async function clocksync() { //APIから時刻情報を取得し、現在時刻�
 onload = async() => { //読込完了後、APIから時刻取得して修正
 	document.getElementById("clock-src").innerHTML = "時刻情報：端末 (APIから取得中…)";
 	const offsets = await clocksync();
-	offset = offsets.reduce((a, b) => a + b, 0) / offsets.length;
 	if (offsets.length > 0) {
+		offsets.sort((a, b) => a - b);
+		const mid = Math.floor(offsets.length / 2);
+		offset = offsets.length % 2 == 0 ? (offsets[mid - 1] + offsets[mid]) / 2 : offsets[mid];
 		document.getElementById("clock-src").innerHTML = '時刻情報：API (取得サーバ数：' + offsets.length + ')';
 	} else {
 		document.getElementById("clock-src").innerHTML = '時刻情報：端末 (<span style="color:#F20;">サーバから取得失敗</span>)';
