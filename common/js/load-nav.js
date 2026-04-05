@@ -1,0 +1,1 @@
+fetch("/common/nav.html").then(r=>r.text()).then(d=>document.querySelector("nav").innerHTML=d);

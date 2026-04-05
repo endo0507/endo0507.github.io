@@ -1,0 +1,14 @@
+@charset "utf-8";
+body{ font-family:'BIZ UDPGothic', sans-serif; transition:background-color .5s, color .5s; }
+main, #sample-main{ display:block; background:#0F0;
+	 width:min(70vw, 70vh/0.4545);
+	 height:min(70vh, 70vw*0.4545); }
+a:link{ color:#08F; } a:visited{ color:#94F; }
+#EEWTitle, #sample-EEWTitle{ background:#0F0; padding:0.2em 0; text-align:center; font-size:clamp(2rem, 0.182rem + 4.85vw, 6rem); }
+#EEWhypocenter, #sample-EEWhypocenter{ margin:0.5rem 1rem; font-size:clamp(1.25rem, 3.33vw, 4rem); }
+#EEWarea, #sample-EEWarea{ padding-left:1rem; line-height:1.5em; font-size:clamp(1.5rem, 0.364rem + 3.03vw, 4rem); }
+#EEWarea span{ display:inline-block; }
+#sample-EEWarea span{ display:inline-block; }
+.color-code{ width:4rem; }
+@media(prefers-color-scheme:dark){ body{ background-color:#111; color:#FFF; } } /* -- dark mode -- */
+@media(prefers-reduced-motion:reduce){ body{ transition:background-color 1ms, color 1ms; } } /* -- accessibility -- */

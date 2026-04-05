@@ -1,0 +1,42 @@
+@charset "utf-8";
+.slideshow-frame{
+	position:relative; overflow:hidden;
+	max-width:95%; max-height:60vmin;
+	aspect-ratio:16/10;
+	margin:2rem 0; }
+.img1, .img2, .img3, .img4{
+	position:absolute; top:0; left:0;
+	width:100%; height:100%;
+	background-size:cover;
+	background-repeat:no-repeat; }
+.img1{
+	background-image:url('/common/img/slideshow/mc-slide1.webp');
+	animation:slide-animation-1 24s infinite; }
+.img2{
+	background-image:url('/common/img/slideshow/mc-slide2.webp');
+	animation:slide-animation-2 24s infinite; }
+.img3{
+	background-image:url('/common/img/slideshow/mc-slide3.webp');
+	animation:slide-animation-3 24s infinite; }
+.img4{
+	background-image:url('/common/img/slideshow/mc-slide4.webp');
+	animation:slide-animation-4 24s infinite; }
+@keyframes slide-animation-1{
+	0%{opacity:1;} 20%{opacity:1;} 25%{opacity:0;} 95%{opacity:0;} 100%{opacity:1;} }
+@keyframes slide-animation-2{
+	0%{opacity:0;} 20%{opacity:0;} 25%{opacity:1;} 45%{opacity:1;} 50%{opacity:0;} 100%{opacity:0;} }
+@keyframes slide-animation-3{
+	0%{opacity:0;} 45%{opacity:0;} 50%{opacity:1;} 70%{opacity:1;} 75%{opacity:0;} 100%{opacity:0;} }
+@keyframes slide-animation-4{
+	0%{opacity:0;} 70%{opacity:0;} 75%{opacity:1;} 95%{opacity:1;} 100%{opacity:0;} }
+/* -- animation accessibility -- */
+@media(prefers-reduced-motion:reduce){
+	@keyframes slide-animation-1{
+		0%{opacity:1;} 24.9%{opacity:1;} 25%{opacity:0;} 99.9%{opacity:0;} 100%{opacity:1;} }
+	@keyframes slide-animation-2{
+		0%{opacity:0;} 24.9%{opacity:0;} 25%{opacity:1;} 49.9%{opacity:1;} 50%{opacity:0;} 100%{opacity:0;} }
+	@keyframes slide-animation-3{
+		0%{opacity:0;} 49.9%{opacity:0;} 50%{opacity:1;} 74.9%{opacity:1;} 75%{opacity:0;} 100%{opacity:0;} }
+	@keyframes slide-animation-4{
+		0%{opacity:0;} 74.9%{opacity:0;} 75%{opacity:1;} 99.9%{opacity:1;} 100%{opacity:0;} }
+}
