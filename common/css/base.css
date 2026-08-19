@@ -26,7 +26,7 @@ body{ display:flex; transition:background-color .5s, color .5s;
 	font-family:'Open Sans', 'ヒラギノ丸ゴ Pro W4', 'ヒラギノ丸ゴ Pro', 'Hiragino Maru Gothic Pro', 'Kosugi Maru', sans-serif; }
 h1{ text-align:center; }
 img{ width:95%; height:auto; }
-a:link{ color:#08F; } a:visited{ color:#94F; }
+a:link{ color:#09E; } a:visited{ color:#C0C; }
 .inbl{ display:inline-block; }
 .sect{ border-top:1px solid; }
 .motionless-notice{ display:none; }
